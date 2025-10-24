@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Mentor Matches</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 Your Top Mentor Matches</h1>
+        <p class="subtitle">Results for <strong>{{ student_name }}</strong></p>
+        
+        <div class="matches">
+            {% for match in matches %}
+            <div class="match-card rank-{{ loop.index }}">
+                <div class="rank-badge">
+                    {% if loop.index == 1 %}🥇{% elif loop.index == 2 %}🥈{% else %}🥉{% endif %}
+                    Rank #{{ loop.index }}
+                </div>
+                
+                <h2>{{ match.name }}</h2>
+                
+                <div class="score-bar">
+                    <div class="score-fill" style="width: {{ '%.1f%%'|format(match.score) }}"></div>
+                    <span class="score-text">{{ "%.1f"|format(match.score) }}/100</span>
+                </div>
+                
+                <div class="details">
+                    <div class="detail-item">
+                        <span class="label">Company:</span>
+                        <span class="value">{{ match.company }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="label">Role:</span>
+                        <span class="value">{{ match.role }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="label">Experience:</span>
+                        <span class="value">{{ match.experience }} years</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="label">University:</span>
+                        <span class="value">{{ match.university }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="label">Stream:</span>
+                        <span class="value">{{ match.stream }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="label">Career Focus:</span>
+                        <span class="value">{{ match.career_interest }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="label">Rating:</span>
+                        <span class="value">⭐ {{ "%.1f"|format(match.rating) }}/5.0</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="label">Availability:</span>
+                        <span class="value">{{ match.availability }}</span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <a href="/" class="btn-back">← Find Mentors for Another Student</a>
+    </div>
+</body>
+</html>
